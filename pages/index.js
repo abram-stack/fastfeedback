@@ -3,6 +3,8 @@ import { Button, Heading, Text, Code, IconButton, Flex } from "@chakra-ui/react"
 import styles from '@/styles/Home.module.css'
 import { FastFeedbackIcon } from 'public/icons';
 import { useAuth } from '@/lib/auth'
+import NextLink from 'next/link';
+import Dashboard from './dashboard';
 
 export default function Home() {
 
@@ -17,7 +19,10 @@ export default function Home() {
         <FastFeedbackIcon color="black.500" boxSize="64px" />
     
       {auth.user ? (
-        <Button mt={ 4}onClick={ (e) => auth.signout()}>Sign Out</Button>
+        // <Button mt={ 4}onClick={ (e) => auth.signout()}>Sign Out</Button>
+          <NextLink href='/dashboard'>
+            <Button as='a'>View Dashboard</Button>
+          </NextLink>
           ) : (
           <Button mt={4} onClick={(e) => auth.signinWithGithub()}>Sign In</Button>
           )
