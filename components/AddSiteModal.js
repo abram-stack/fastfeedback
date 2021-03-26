@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
+import { mutate } from "swr";
 import {
   Modal,
   ModalOverlay,
@@ -12,29 +13,68 @@ import {
   FormLabel,
   Input,
   useDisclosure,
-  Button
+  Button,
+  useToast
 } from "@chakra-ui/react"
-import { createSite } from "@/lib/db";
+import fetcher  from '@/utils/fetcher';
+import  {createSite}  from "@/lib/db";
+import { useAuth } from "@/lib/auth";
+import { transform } from "framer-motion";
 
-const AddSiteModal = () => {
-  
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
+const AddSiteModal = ({children}) => {
+
+  const auth = useAuth();
+  const toast = useToast();
+
   const initialRef = useRef();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { register, handleSubmit } = useForm();
-  const onCreateSite = (values) => {
-    createSite(values)
+
+
+  const onCreateSite = ({ name, url }) => {
+    const newSite = {
+      authorId: auth.user.uid,
+      createdAt: new Date().toISOString(),
+      name,
+      url
+    };
+    createSite(newSite);
+    toast({
+          title: "Success!",
+          description: "We've created your site.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+    })
+    mutate('/api/sites', async (data) => {
+      return { sites : [...data.sites, newSite]}
+    },false)
+    onClose();
   }
+
   return (
     <>
-       <Button maxW="200px" fontWeight="medium" variant="solid" size="md" color="blackAlpha.700" backgroundColor="gray.200" m={2} onClick={onOpen}>
-        Add Your First Sites
+      <Button
+        onClick={onOpen}
+        fontWeight="medium"
+        color="white"
+        backgroundColor="gray.900"
+        m={2}
+        _hover={{ bg: 'gray.700' }}
+        _active={{
+          bg: 'gray.800',
+          transform: 'scale(0.95)'
+        }}
+      >
+        {children}
       </Button>
     
       <Modal
         initialFocusRef={initialRef}
         isOpen={isOpen}
         onClose={onClose}
-      >
+        >
         <ModalOverlay />
         <ModalContent as="form" onSubmit={handleSubmit(onCreateSite)}>
           <ModalHeader>Add Site</ModalHeader>
