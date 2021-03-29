@@ -54,6 +54,7 @@ const DashboardShell = ({ children }) => {
             </NextLink>
           </Flex>
           <Flex justifyContent="center" alignItems="center">
+            {auth.user ? <Button mr={ 4}onClick={(e) => auth.signout()}>Sign Out</Button> : null}
             <NextLink href="/account" passHref>
               <Link>
                 <Avatar size="sm" src={auth.user?.photoUrl} />
