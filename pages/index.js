@@ -13,9 +13,14 @@ export default function Home() {
 
   return (
     <Flex as="main" align="center" direction="column" justify="center" h="100vh">
-        <Heading fontWeight='medium'>
-          <title>Fast Feedback</title>
-        </Heading>
+        <Head>
+        <title>Fast Feedback</title>
+         <script dangerouslySetInnerHTML={{ __html: `
+          if (document.cookie && document.cookie.includes('fast-feedback-auth')) {
+            window.location.href = "/dashboard"
+          }
+        ` }} />
+        </Head>
         <FastFeedbackIcon color="black.500" boxSize="64px" />
       <Text>
         Fast Feedback is the easiest way to add <br/>comments or reviews your static site. <br/>It's still work in progress. but you can try to logging in.

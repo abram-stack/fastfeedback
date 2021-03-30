@@ -10,9 +10,11 @@ import SiteTable from '../components/SiteTable';
 
 export default function Dashboard() {
 
-  const auth = useAuth();
-
-  const { data } = useSWR('/api/sites', fetcher);
+  const { user } = useAuth();
+  // if thers user, we call backend
+  // send multiple information with the req, using []
+  // update fetcher function
+  const { data } = useSWR(user ? ['/api/sites', user.token] : null , fetcher);
 
 
 

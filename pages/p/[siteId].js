@@ -22,7 +22,8 @@ export async function getStaticProps(context) {
   return {
     props: {
       feedback
-    }
+    },
+    revalidate: 1
   }
 }
 
