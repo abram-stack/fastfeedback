@@ -17,11 +17,13 @@ export default function Home() {
           <title>Fast Feedback</title>
         </Heading>
         <FastFeedbackIcon color="black.500" boxSize="64px" />
-    
+      <Text>
+        Fast Feedback is the easiest way to add <br/>comments or reviews your static site. <br/>It's still work in progress. but you can try to logging in.
+        </Text>
       {auth.user ? (
         // <Button mt={ 4}onClick={ (e) => auth.signout()}>Sign Out</Button>
           <NextLink href='/dashboard'>
-            <Button as='a'>View Dashboard</Button>
+            <Button as='a' mt={4}>View Dashboard</Button>
           </NextLink>
           ) : (
           <Button mt={4} onClick={(e) => auth.signinWithGithub()}>Sign In</Button>

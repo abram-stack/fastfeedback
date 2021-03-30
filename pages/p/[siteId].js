@@ -7,13 +7,12 @@ import {
   Input
 } from "@chakra-ui/react"
 import { useRouter } from 'next/router';
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import { getAllFeedback, getAllSites } from "@/lib/db-admin";
 import { useAuth } from "@/lib/auth";
 import Feedback from "@/components/Feedback";
 import { createFeedback } from '@/lib/db';
-import { useState } from 'react';
 
 
 export async function getStaticProps(context) {
