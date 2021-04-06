@@ -2,20 +2,13 @@ import React from 'react'
 import NextLink from 'next/link'
 import {
   Flex,
-  Stack,
   Link,
   Avatar,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  Heading,
   Box,
-  Text,
   Button
 } from '@chakra-ui/react'
 import { FastFeedbackIcon } from 'public/icons'
 import { useAuth } from '@/lib/auth'
-import AddSiteModal from './AddSiteModal'
 
 
 
@@ -46,7 +39,7 @@ const DashboardShell = ({ children }) => {
                 <FastFeedbackIcon mr={4}/>
               </Link>
             </NextLink>
-            <NextLink href="/sites" passHref>
+            <NextLink href="/dashboard" passHref>
               <Link mr={4}>Sites</Link>
             </NextLink>
             <NextLink href="/feedback" passHref>
@@ -64,13 +57,7 @@ const DashboardShell = ({ children }) => {
         </Flex>
       </Flex>
       <Flex margin="0 auto" direction="column" maxW="1250px" px={[0, 8, 8]}>
-        <Flex justifyContent='space-between'>
-          <Heading mb={8}>My Sites </Heading>
-          <AddSiteModal>
-            + Add Site
-          </AddSiteModal>
-        </Flex>
-
+        
         {children}
 
       </Flex>

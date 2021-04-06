@@ -7,6 +7,7 @@ import EmptyState from '@/components/EmptyState';
 import fetcher from '@/utils/fetcher'
 import SiteTableSkeleton from '@/components/SiteTableSkeleton';
 import SiteTable from '../components/SiteTable';
+import SiteTableHeader from '@/components/SiteTableHeader';
 
 export default function Dashboard() {
 
@@ -16,11 +17,10 @@ export default function Dashboard() {
   // update fetcher function
   const { data } = useSWR(user ? ['/api/sites', user.token] : null , fetcher);
 
-
-
   if (!data) {
     return (
       <DashboardShell>
+        <SiteTableHeader/>
         <SiteTableSkeleton />
       </DashboardShell>)
   }
@@ -28,6 +28,7 @@ export default function Dashboard() {
     
   return (
     <DashboardShell>
+      <SiteTableHeader/>
       {data.sites ? <SiteTable sites={data.sites}/> : <EmptyState/>}
     </DashboardShell>
   )
